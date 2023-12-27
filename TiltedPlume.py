@@ -186,7 +186,7 @@ RMzTiltDisk = RotationMatrix(Zaxis, PhiTilt + 10. * dtor)  # 5 is so far best, m
 RMTiltDisk = np.dot(RMyTiltDisk, RMzTiltDisk)
 
 # Build the plume grid by calling the parallelized function FillDensityPlumeArray
-NumPythonProcesses = 12
+NumPythonProcesses = 6
 print('Building plume grid (running ' + str(NumPythonProcesses) + ' parallel processes)...')
 FirstZAboveZero = Value('d', -1)
 Processes = []
