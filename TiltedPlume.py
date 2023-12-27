@@ -207,7 +207,7 @@ for i in range(1, NumPythonProcesses + 1):
                                                                  DensityDiskArray, FirstZAboveZero, HeightPlume,
                                                                  OpeningAnglePlume, Offset1Plume, HeightPlumeRange,
                                                                  OpeningAngleHollowPlume, NumberDensityList,
-                                                                 MassPerParticle, RM, RMTilt, RMTiltDisk,
+                                                                 massPerParticle, RM, RMTilt, RMTiltDisk,
                                                                  CenterDistanceCone, ConeOffset, PlumeVector,
                                                                  ResultQueuesCone[i - 1], ResultQueuesDisk[i - 1])))
 
