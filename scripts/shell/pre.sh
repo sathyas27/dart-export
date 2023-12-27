@@ -9,12 +9,10 @@ module load python
 # Source bashrc and activate the environment
 source /home/${USER}/.bashrc
 conda activate dart-export
-sleep 10
 
 # Job variables
-PREPROCESSING_SCRIPT="pre"
+PREPROCESSING_SCRIPT="pre.sh"
 JOB_LOG='log-pre'
-
 # Parsing command-line arguments
 while getopts d:s:l: flag
 do
@@ -32,7 +30,7 @@ CONFIG_FILE="current_config.py"
 MAIN_SCRIPT="TiltedPlume.py"
 
 # Copying necessary files to specified locations
-cp "$PREPROCESSING_SCRIPT" "$SCRIPTS_STORAGE"
+cp "scripts/shell/$PREPROCESSING_SCRIPT" "$SCRIPTS_STORAGE"
 cp "$MAIN_SCRIPT" "$CURRENT_STORAGE/"
 cp "$CONFIG_FILE" "$CURRENT_STORAGE/"
 
