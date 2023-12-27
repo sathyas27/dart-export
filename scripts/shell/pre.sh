@@ -5,6 +5,7 @@
 # Purge and load necessary modules
 module purge
 module load python
+module load envi
 
 # Source bashrc and activate the environment
 source /home/${USER}/.bashrc
