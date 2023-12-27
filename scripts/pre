@@ -1,0 +1,108 @@
+#!/bin/bash
+
+##### START sbatch setup #####
+
+# Selecting a partition
+## Unless you want to request the debug and scavenger partitions,
+## Slurm will automatically assign job to the correct partition
+##########SBATCH -p debug
+
+# Account to charge (defaults to low priority)
+# High Priority
+#SBATCH -A astronomy-hi
+
+# How long the job will run (H:M:S)
+#SBATCH -t 01:00:00
+
+# Node and core requirements
+## Number of MPI task
+#SBATCH --ntasks=13
+
+## Number of CPU cores to use for each task
+#SBATCH --cpus-per-task=1
+
+# Memory requirements
+# The default is 6GB per CPU core
+# sbatch command specifies memory in mb.
+#SBATCH --mem-per-cpu=16384
+
+
+# Whether or not other jobs can be on the same node
+## Hurts performance while decreasing SU usage
+## Increased performance and SU usage
+#SBATCH --exclusive
+
+# Do not inherit environment of process running sbatch command
+# Setting up the environment in this script is more reproducible.
+#SBATCH --export=None
+
+# Job name
+#SBATCH --job-name=pre-dart
+
+# stdout and stderr merged to stdout/OUTFILE
+#SBATCH -o OUTFILE
+
+# Email address and mailing preferences
+#SBATCH --mail-user=slurmlogger@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --mail-type=TIME_LIMIT_50
+#SBATCH --mail-type=TIME_LIMIT_80
+#SBATCH --mail-type=TIME_LIMIT_90
+#SBATCH --mail-type=TIME_LIMIT
+
+##### END sbatch setup #####
+
+. ~/.profile
+
+##### START module commands #####
+module purge
+module load envi/5.4.1
+
+source /home/${USER}/.bashrc
+source activate hyperion
+sleep 10
+##### END module commands #####
+
+##### START job commands #####
+PREPROCESSING_SCRIPT="pre"
+JOB_LOG='log-pre'
+
+while getopts d:s:l: flag
+do
+    case "${flag}" in
+        d) CURRENT_STORAGE=${OPTARG};;
+		s) SCRIPTS_STORAGE=${OPTARG};;
+		l) LOGS_STORAGE=${OPTARG};;
+    esac
+done
+
+/bin/echo -e "CURRENT_STORAGE: $CURRENT_STORAGE" > $JOB_LOG 2>&1
+ 
+CONFIG_FILE="current_config.py"
+MAIN_SCRIPT="TiltedPlume.py"
+
+# Save these files to storage
+cp "$PREPROCESSING_SCRIPT" "$SCRIPTS_STORAGE"
+cp "$MAIN_SCRIPT" "$CURRENT_STORAGE/"
+cp "$CONFIG_FILE" "$CURRENT_STORAGE/"
+
+OUTPUT_FILE='model_input_file.rtin'
+
+# Delete the .rtin file from the previous run
+rm -f "$OUTPUT_FILE"
+
+/bin/echo -e "Beginning Preproccessing..." > $JOB_LOG 2>&1
+
+# Run the code
+which python >> $JOB_LOG 2>&1
+python TiltedPlume.py >> $JOB_LOG 2>&1
+
+# Extract results
+cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
+
+/bin/echo -e "Preprocessing finished!" >> $JOB_LOG 2>&1
+
+cp "$JOB_LOG" "$LOGS_STORAGE/"
+
+##### END job commands #####
+

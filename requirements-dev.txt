@@ -1,0 +1,5 @@
+cplex==20.1.0.1
+docplex==2.22.213
+dill==0.3.4
+qiskit-optimization==0.2.3
+qiskit-terra==0.18.3

@@ -1,0 +1,116 @@
+#!/bin/bash
+
+###############
+# REAL DEEP THOUGHT 2 (SLURM SCHEDULER) VERSION
+###############
+
+##### START sbatch setup #####
+
+# Selecting a partition
+
+## Unless you want to request the debug and scavenger partitions,
+## Slurm will automatically assign job to the correct partition
+
+# Account to charge (defaults to low priority)
+# High Priority
+#SBASH -A astronomy-hi
+
+# How long the job will run (H:M:S)
+#SBATCH -t 8:00:00
+
+# Node and core requirements
+## Number of MPI task
+#SBATCH --ntasks=100
+
+## Number of CPU cores to use for each task
+#SBATCH --cpus-per-task=1
+
+# Memory requirements
+# The default is 6GB per CPU core
+# sbatch command specifies memory in mb.
+#SBATCH --mem-per-cpu=16500
+
+
+# Whether or not other jobs can be on the same node
+## Hurts performance while decreasing SU usage
+## Increased performance and SU usage
+#SBATCH --exclusive
+
+# Do not inherit environment of process running sbatch command
+# Setting up the environment in this script is more reproducible.
+#SBATCH --export=None
+
+# Job name
+#SBATCH --job-name=mpi-f
+
+# stdout and stderr merged to stdout/OUTFILE
+#SBATCH -o OUTFILE
+
+# Email address and mailing preferences
+#SBATCH --mail-user=slurmlogger@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --mail-type=TIME_LIMIT_50
+#SBATCH --mail-type=TIME_LIMIT_80
+#SBATCH --mail-type=TIME_LIMIT_90
+#SBATCH --mail-type=TIME_LIMIT
+##### END sbatch setup #####
+
+. ~/.profile
+
+##### START module commands #####
+module purge
+module load hdf5/intel/2020.1/intelmpi/ivybridge/1.10.6
+##### END module commands #####
+
+##### START job commands #####
+# Initial parameters
+CUR_JOB_FILE='current_job'
+PERFORM_WORK_FILENAME='f-slurm'
+STORAGE_DIRECTORY='../storage'
+IMAGE_FILE='images.fits.gz'
+
+# Often-tunable initial parameters
+PYTHON_CONFIG_FILE='current_config.py'
+RADIATIVE_OUTPUT_FILE='model_result_file.rtout'
+
+# Create the main storage directory if it does not exist
+if [ ! -d "$STORAGE_DIRECTORY" ];
+then
+	mkdir $STORAGE_DIRECTORY
+fi
+
+# Create new storage folder to store the results
+STORAGE_CREATED=0
+STORAGE_ID=0
+while [ $STORAGE_CREATED -eq 0 ];
+do
+	let STORAGE_ID++
+	if [ ! -d "${STORAGE_DIRECTORY}/${STORAGE_ID}" ];
+	then
+		CURRENT_STORAGE="${STORAGE_DIRECTORY}/${STORAGE_ID}"
+		mkdir $CURRENT_STORAGE
+		STORAGE_CREATED=1
+	fi
+done
+
+# Save this file to storage
+cp "$PERFORM_WORK_FILENAME" "$CURRENT_STORAGE/"
+
+# Delete the .rtout file
+rm -f "$RADIATIVE_OUTPUT_FILE"
+
+/bin/echo -e "Job ID is $STORAGE_ID. Beginning run.." > $CUR_JOB_FILE 2>&1
+/bin/echo -e "Job ID is $STORAGE_ID. Beginning run.."
+
+# Run the MPI code
+mpirun ../../anaconda3/envs/hyperion/bin/hyperion_sph_mpi model_input_file.rtin model_result_file.rtout >> $CUR_JOB_FILE 2>&1
+
+# Extract image
+cp "$PYTHON_CONFIG_FILE" "$CURRENT_STORAGE/"
+cp "$RADIATIVE_OUTPUT_FILE" "$CURRENT_STORAGE/"
+cp TiltedPlume.py "$CURRENT_STORAGE/"
+
+/bin/echo -e "Job ID $STORAGE_ID finished!" >> $CUR_JOB_FILE 2>&1
+/bin/echo -e "Job ID $STORAGE_ID finished!"
+##### END job commands #####
+
