@@ -1,3 +1,4 @@
+print("reached TiltedPlume.py")
 """
 UPDATE LOG
 ----------
@@ -7,7 +8,6 @@ This allows us to specify the NumberDensity within each HeightPlumeRange interva
 It would be more efficient to specify this within the individual dust files.
 But that requires me to look into GenerateHDF5.generate_hdf5()
 """
-
 import numpy as np
 import os
 import subprocess
