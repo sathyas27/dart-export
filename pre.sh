@@ -4,7 +4,6 @@
 
 # Purge and load necessary modules
 module purge
-module load python
 module load envi
 
 # Source bashrc and activate the environment
@@ -60,7 +59,7 @@ rm -f "$OUTPUT_FILE"
 
 # Run the Python script and log output
 which python >> $JOB_LOG 2>&1
-python TiltedPlume.py >> $JOB_LOG 2>&1
+python -m TiltedPlume.py >> $JOB_LOG 2>&1
 
 # Copy the results to storage
 cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
