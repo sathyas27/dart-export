@@ -4,7 +4,7 @@
 
 # Load necessary modules
 module purge
-module load hdf5/intel/2020.1/intelmpi/ivybridge/1.10.6
+module load python
 
 # Initial parameters
 CUR_JOB_FILE='current_job'

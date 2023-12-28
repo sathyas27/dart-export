@@ -4,7 +4,7 @@ SETUP_FILENAME="runHyperion"
 STORAGE_DIRECTORY="../storage"
 
 PREPROCESSING_SCRIPT="pre"
-MPI_SCRIPT="main-process"
+MPI_SCRIPT="main-process.sh"
 
 JOB_LOG='log-main'
 

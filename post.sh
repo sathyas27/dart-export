@@ -5,10 +5,11 @@
 # Load necessary modules
 module purge
 module load python
+module load envi
 
 # Source user's bashrc and activate the environment
 source /home/${USER}/.bashrc
-source activate hyperion
+conda activate dart-export
 sleep 10
 
 # Initial parameters
