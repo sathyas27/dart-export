@@ -13,15 +13,6 @@ conda activate dart-export
 # Job variables
 PREPROCESSING_SCRIPT="pre.sh"
 JOB_LOG='log-pre'
-# Parsing command-line arguments
-# while getopts d:s:l: flag
-# do
-#     case "${flag}" in
-#         d) CURRENT_STORAGE=${OPTARG};;
-#         s) SCRIPTS_STORAGE=${OPTARG};;
-#         l) LOGS_STORAGE=${OPTARG};;
-#     esac
-# done
 if [ ! -d "data" ]; then
     mkdir data
     mkdir -p data/logs data/scripts data/storage
@@ -42,7 +33,7 @@ JOB_LOG="${LOGS_STORAGE}/${JOB_LOG}"
  
 # Configuration and main script files
 CONFIG_FILE="current_config.py"
-MAIN_SCRIPT="TiltedPlume.py"
+MAIN_SCRIPT="tilted_plume.py"
 
 # Copying necessary files to specified locations
 cp "$PREPROCESSING_SCRIPT" "$SCRIPTS_STORAGE"
@@ -59,7 +50,7 @@ rm -f "$OUTPUT_FILE"
 
 # Run the Python script and log output
 which python >> $JOB_LOG 2>&1
-python -m TiltedPlume.py >> $JOB_LOG 2>&1
+python $MAIN_SCRIPT >> $JOB_LOG 2>&1
 
 # Copy the results to storage
 cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
