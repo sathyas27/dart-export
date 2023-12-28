@@ -67,5 +67,3 @@ cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
 
 /bin/echo -e "Preprocessing finished!" >> $JOB_LOG 2>&1
 
-# Copy the job log to the specified storage location
-cp "$JOB_LOG" "$LOGS_STORAGE/"
