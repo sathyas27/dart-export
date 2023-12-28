@@ -28,10 +28,14 @@ if [ ! -d "data" ]; then
     mkdir -p data/logs data/scripts data/storage
 else
     echo "Directory 'data' already exists."
+    rm -r data
+    mkdir data
+    mkdir -p data/logs data/scripts data/storage
 fi
 CURRENT_STORAGE="data/storage"
 SCRIPTS_STORAGE="data/scripts"
 LOGS_STORAGE="data/logs"
+JOB_LOG="${LOGS_STORAGE}/${JOB_LOG}"
 
 
 
