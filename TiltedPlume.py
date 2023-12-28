@@ -227,6 +227,9 @@ except:
     print(exc_info()[2])
     raise
 
+
+print("this job has finished")
+
 # Output all theta and phi combinations
 # (used further in code to determine where the asteroid nucleus should be in the grid)
 
