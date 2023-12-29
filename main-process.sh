@@ -1,10 +1,30 @@
 #!/bin/bash
+# Node and core requirements
+## Number of MPI task
+#SBATCH --ntasks=13
+
+## Number of CPU cores to use for each task
+#SBATCH --cpus-per-task=1
+
+# Memory requirements
+# The default is 6GB per CPU core
+# sbatch command specifies memory in mb.
+#SBATCH --mem-per-cpu=2048
+
+#SBATCH --time=01:00:00  # Set a limit of one hour for the job
+
+
+# Whether or not other jobs can be on the same node
+## Hurts performance while decreasing SU usage
+## Increased performance and SU usage
+#SBATCH --exclusive
 
 . ~/.profile
 
 # Load necessary modules
 module purge
 module load envi
+module load hdf5/intel/2020.1/intelmpi/ivybridge/1.10.6
 
 # Initial parameters
 CUR_JOB_FILE='current_job'
@@ -40,7 +60,6 @@ cp "$PERFORM_WORK_FILENAME" "$CURRENT_STORAGE/"
 rm -f "$RADIATIVE_OUTPUT_FILE"
 
 /bin/echo -e "Job ID is $STORAGE_ID. Beginning run.." > "$CUR_JOB_FILE" 2>&1
-/bin/echo -e "Job ID is $STORAGE_ID. Beginning run.."
 
 # Run the MPI code
 mpirun ../../anaconda3/envs/hyperion/bin/hyperion_sph_mpi model_input_file.rtin model_result_file.rtout >> "$CUR_JOB_FILE" 2>&1
