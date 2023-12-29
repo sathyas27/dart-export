@@ -299,12 +299,17 @@ rrDividedByKM = RadiusMid / km
 
 for it in range(0, NumTheta):
     for ip in range(0, NumPhi):
-        biggerIndices = (np.where(rrDividedByKM >= NucleusRadii[i]))[0]
+        biggerIndices = np.where(rrDividedByKM >= NucleusRadii[i])[0]
 
-        ir = biggerIndices[0]
-        DensityCoreArray[ip, it, 0:ir] = 1e5
-        i = i + 1
+        # Check if biggerIndices is not empty
+        if biggerIndices.size > 0:
+            ir = biggerIndices[0]
+            DensityCoreArray[ip, it, 0:ir] = 1e5
+        else:
+            continue
+           
 
+        i += 1
 
 # Add density grids to physical grids
 m.add_density_grid(DensityCoreArray, DustFileCore)
