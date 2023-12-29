@@ -4,12 +4,12 @@
 
 # Load necessary modules
 module purge
-module load python
+module load envi
 
 # Initial parameters
 CUR_JOB_FILE='current_job'
-PERFORM_WORK_FILENAME='main-process'
-STORAGE_DIRECTORY='../storage'
+PERFORM_WORK_FILENAME='main-process.sh'
+STORAGE_DIRECTORY='storage'
 IMAGE_FILE='images.fits.gz'
 
 # Often-tunable initial parameters
@@ -48,7 +48,7 @@ mpirun ../../anaconda3/envs/hyperion/bin/hyperion_sph_mpi model_input_file.rtin 
 # Extract image
 cp "$PYTHON_CONFIG_FILE" "$CURRENT_STORAGE/"
 cp "$RADIATIVE_OUTPUT_FILE" "$CURRENT_STORAGE/"
-cp TiltedPlume.py "$CURRENT_STORAGE/"
+cp tilted_plume.py "$CURRENT_STORAGE/"
 
 /bin/echo -e "Job ID $STORAGE_ID finished!" >> "$CUR_JOB_FILE" 2>&1
 /bin/echo -e "Job ID $STORAGE_ID finished!"

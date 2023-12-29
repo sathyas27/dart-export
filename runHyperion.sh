@@ -1,9 +1,9 @@
 #!/bin/bash
 
 SETUP_FILENAME="runHyperion"
-STORAGE_DIRECTORY="../storage"
+STORAGE_DIRECTORY="storage"
 
-PREPROCESSING_SCRIPT="pre"
+PREPROCESSING_SCRIPT="pre.sh"
 MPI_SCRIPT="main-process.sh"
 
 JOB_LOG='log-main'
