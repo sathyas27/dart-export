@@ -23,8 +23,7 @@
 
 # Load necessary modules
 module purge
-module load envi
-module load hdf5/intel/2020.1/intelmpi/ivybridge/1.10.6
+module load hdf5/intel/2021.4.0/intel-mpi/2021.6.0/zen2/1.10.7
 
 # Initial parameters
 CUR_JOB_FILE='current_job'
@@ -62,7 +61,7 @@ rm -f "$RADIATIVE_OUTPUT_FILE"
 /bin/echo -e "Job ID is $STORAGE_ID. Beginning run.." > "$CUR_JOB_FILE" 2>&1
 
 # Run the MPI code
-mpirun ../../anaconda3/envs/hyperion/bin/hyperion_sph_mpi model_input_file.rtin model_result_file.rtout >> "$CUR_JOB_FILE" 2>&1
+mpirun /home/sselvam/scratch/miniconda3/envs/dart-export/bin/hyperion_sph_mpi model_input_file.rtin model_result_file.rtout >> "$CUR_JOB_FILE" 2>&1
 
 # Extract image
 cp "$PYTHON_CONFIG_FILE" "$CURRENT_STORAGE/"

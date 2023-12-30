@@ -26,9 +26,6 @@
 module purge
 module load envi
 
-
-
-
 # Source bashrc and activate the environment
 source /home/${USER}/.bashrc
 conda activate dart-export
