@@ -73,7 +73,14 @@ cp "$CONFIG_FILE" "$CURRENT_STORAGE/"
 /bin/echo -e "Beginning Preprocessing..." >> $JOB_LOG 2>&1
 
 # Run the Python script and log output
+<<<<<<< Updated upstream
 /home/sselvam/scratch/miniconda3/envs/dart-export/bin/python tilted_plume.py >> $JOB_LOG 2>&1
+=======
+which python >> $JOB_LOG 2>&1
+ls >> "$JOB_LOG" 2>&1
+
+python -m TiltedPlume.py >> $JOB_LOG 2>&1
+>>>>>>> Stashed changes
 
 # Copy the results to storage
 # cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
