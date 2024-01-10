@@ -52,10 +52,10 @@ HeightPlume = HeightPlumeRange[-1] * km
 
 # TODO: Update code to only expect a single DustPlume File
 DustPlume = [{"albedo0": 0.55, "chi0": 0.517, "g0": 0.9367, "pmax0": 0}]
-DustFilesPlume = ['A055_C517_G094_P000.hdf5']
+DustFilesPlume = [os.path.join(loadDustFiles.DustFolder, DustFile) for DustFile in loadDustFiles.load_plume(DustPlume)]
 
 DustCore = {"albedo0": 0.25, "chi0": 1, "g0": -0.49, "pmax0": 0}
-DustFileCore = ['A025_C1000_Gm049_P000.hdf5']
+DustFileCore = os.path.join(loadDustFiles.DustFolder, loadDustFiles.load_core(DustCore))
 
 ### General Grid Properties ###
 WhichGrid = 'slow'  # Options are quick, or slow
