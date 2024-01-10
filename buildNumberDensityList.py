@@ -8,7 +8,7 @@ m = 1.e3
 dtor = pi / 180.
 
 
-file = '/home/sselvam/dart-export/ejecta_distance_time_leia.fits'
+file = 'ejecta_distance_time_leia.fits'
 
 
 def getMassData(file, time, HeightPlume, massPerParticle=None):

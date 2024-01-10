@@ -299,19 +299,17 @@ rrDividedByKM = RadiusMid / km
 
 print(rrDividedByKM)
 
-for it in range(NumTheta):
-    for ip in range(NumPhi):
+for it in range(0, NumTheta):
+    for ip in range(0, NumPhi):
         # Check if the radius in km is greater than or equal to the current Nucleus radius
         biggerIndices = np.where(rrDividedByKM >= NucleusRadii[i])[0]
 
         # Check if there are any indices that satisfy the condition
         if biggerIndices.size > 0:
             ir = biggerIndices[0]  # The first index where the condition is met
-            DensityCoreArray[ip, it, 0:ir] = 1e5  # Set density values to 1e5 for these indices
+            DensityCoreArray[ip, it, 0:ir] = 1.e5  # Set density values to 1e5 for these indices
         else:
-            # Handle the case where no indices satisfy the condition
-            # For example, you might want to log this or set a different density value
-            print(f"No indices found for it={it}, ip={ip}, i={i}")
+            continue
 
         # Increment i, but ensure it doesn't go beyond the length of NucleusRadii
         i += 1
