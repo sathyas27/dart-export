@@ -307,7 +307,7 @@ for it in range(NumTheta):
         # Check if there are any indices that satisfy the condition
         if biggerIndices.size > 0:
             ir = biggerIndices[0]  # The first index where the condition is met
-            DensityCoreArray[ip, it, 0:ir] = 1e5  # Set density values to 1e5 for these indices
+            DensityCoreArray[ip, it, 0:ir] = 1.e5  # Set density values to 1e5 for these indices
         else:
             # Handle the case where no indices satisfy the condition
             # For example, you might want to log this or set a different density value
