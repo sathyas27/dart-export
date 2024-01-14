@@ -10,7 +10,7 @@
 # Memory requirements
 # The default is 6GB per CPU core
 # sbatch command specifies memory in mb.
-#SBATCH --mem-per-cpu=2048
+#SBATCH --mem-per-cpu=4096
 
 #SBATCH --time=01:00:00  # Set a limit of one hour for the job
 
@@ -65,7 +65,7 @@ cp "$MAIN_SCRIPT" "$CURRENT_STORAGE/"
 cp "$CONFIG_FILE" "$CURRENT_STORAGE/"
 
 # # Output file name
-# OUTPUT_FILE='model_input_file.rtin'
+OUTPUT_FILE='model_input_file.rtin'
 
 # # Delete the .rtin file from the previous run, if it exists
 # rm -f "$OUTPUT_FILE"
@@ -76,6 +76,6 @@ cp "$CONFIG_FILE" "$CURRENT_STORAGE/"
 /home/sselvam/scratch/miniconda3/envs/dart-export/bin/python tilted_plume.py >> $JOB_LOG 2>&1
 
 # Copy the results to storage
-# cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
+cp "$OUTPUT_FILE" "$CURRENT_STORAGE/"
 
 /bin/echo -e "Preprocessing finished!" >> $JOB_LOG 2>&1
