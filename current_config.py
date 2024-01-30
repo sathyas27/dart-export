@@ -14,8 +14,9 @@ version = 'source-testing-smaller-centerDistanceCone'
 ##################################################################
 # TODO: Write method to generate NumberDensityList
 # This example should create bands of density
-# NumberDensityList = [3.1e1, 3.2e2,  3.1e12, 3.2e2]
-# NumberDensity = 4.023e12
+NumberDensityList = [3.1e1, 3.2e2,  3.1e12, 3.2e2]
+NumberDensity = 4.023e12
+NumDensityList = []
 # Previous was 1.e8
 NumberOfPhotons = 1.e7
 
@@ -47,7 +48,7 @@ CenterDistanceCone = 0.005 * km  # Distance from center coordinate system to the
 # Plume heights in the cone-centric coordinates (use as many divisions as you'd like)
 # Plume dust properties in same order as plume height (one for each height divison)
 
-_, NumberDensityList, HeightPlumeRange = buildLayeredPlume(file, time, approximate_HeightPlume, OpeningAnglePlume, OpeningAngleHollowPlume, massPerParticle)
+_, NumDensityList, HeightPlumeRange = buildLayeredPlume(file, time, approximate_HeightPlume, OpeningAnglePlume, OpeningAngleHollowPlume, massPerParticle)
 HeightPlume = HeightPlumeRange[-1] * km
 
 # TODO: Update code to only expect a single DustPlume File
