@@ -103,6 +103,7 @@ dependencies:
   - xz=5.2.4=h14c3975_4
   - yt=3.5.1=py37hc1659b7_1
   - zlib=1.2.11=h7f8727e_4
+  - dask
   - pip:
       - aplpy==2.1.0
       - astropy-healpix==0.7
