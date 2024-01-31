@@ -24,7 +24,7 @@ def generate_file_name(parameters):
     arg_list = [val[0] + str(round(parameters[key] * val[1])).zfill(3) for key, val in label_dict.items()]
 
     output_file = '_'.join(arg_list)
-    return '/home/sselvam/dart-export/' + output_file + ".hdf5"
+    return output_file + ".hdf5"
 
 
 def generate_parameters(file_name):

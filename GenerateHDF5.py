@@ -13,7 +13,7 @@ This script generates the HDF5 dust files usedt to construct models.
 We have been relying on the Henyey Greenstein model for BOTH the plume and core.
 """
 
-def generate_hdf5(parameters, output_file, dustType='HG'):
+def generate_hdf5(parameters, output_file, dustType = None):
     # print(parameters)
     # # print(parameters.keys())
     # if dustType in parameters.values():
