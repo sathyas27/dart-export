@@ -47,7 +47,9 @@ SCRIPTS_STORAGE="data/scripts"
 LOGS_STORAGE="data/logs"
 JOB_LOG="${LOGS_STORAGE}/${JOB_LOG_NAME}"
 
-
+if [ ! -d "dust-files" ]; then
+    mkdir -p dust-files
+fi
 
 /bin/echo -e "CURRENT_STORAGE: $CURRENT_STORAGE" > $JOB_LOG 2>&1
  
