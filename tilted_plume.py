@@ -115,6 +115,9 @@ NumPhi = len(pw) - 1
 print("Grid radii (km): ", rw / km)
 print("Grid theta angles: ", tw / dtor)
 print("Grid phi angles: ", pw / dtor)
+print("NumRad: ", NumRad)
+print("NumTheta: ", NumTheta)
+print("NumPhi: ", NumPhi)
 
 ##################################################################
 
