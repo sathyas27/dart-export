@@ -216,6 +216,7 @@ try:
     for ResultQueueCone in ResultQueuesCone:
         DensityPlumeArraySubresult = ResultQueueCone.get()
         NonzeroIndicies = np.nonzero(DensityPlumeArraySubresult)
+        print(f"Nonzero Indicies: {NonzeroIndicies} ")
         DensityPlumeArray[NonzeroIndicies] = DensityPlumeArraySubresult[NonzeroIndicies]
     for ResultQueueDisk in ResultQueuesDisk:
         DensityDiskArraySubresult = ResultQueueDisk.get()
