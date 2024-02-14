@@ -215,9 +215,11 @@ try:
     for Process in Processes: Process.start()
     for ResultQueueCone in ResultQueuesCone:
         DensityPlumeArraySubresult = ResultQueueCone.get()
+        print(f"DPA Sub-result: {DensityPlumeArraySubresult} ")
         NonzeroIndicies = np.nonzero(DensityPlumeArraySubresult)
         print(f"Nonzero Indicies: {NonzeroIndicies} ")
         DensityPlumeArray[NonzeroIndicies] = DensityPlumeArraySubresult[NonzeroIndicies]
+        print(f"DPA: {DensityPlumeArray[NonzeroIndicies]} ")
     for ResultQueueDisk in ResultQueuesDisk:
         DensityDiskArraySubresult = ResultQueueDisk.get()
         NonzeroIndicies = np.nonzero(DensityDiskArraySubresult)
