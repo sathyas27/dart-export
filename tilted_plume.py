@@ -19,6 +19,8 @@ from hyperion.util.constants import pi, lsun, rsun, tsun, au
 from sys import exc_info
 from HelperFunctions import *
 from multiprocessing import Process, Value, Queue
+import dask.array as da
+from dask.distributed import Client, LocalCluster
 
 # New Imports for multiprocessing debugging
 import sys
@@ -188,6 +190,10 @@ RMTiltDisk = np.dot(RMyTiltDisk, RMzTiltDisk)
 # Build the plume grid by calling the parallelized function FillDensityPlumeArray
 NumPythonProcesses = 12
 print('Building plume grid (running ' + str(NumPythonProcesses) + ' parallel processes)...')
+
+cluster = LocalCluster(n_workers=NumPythonProcesses, threads_per_worker=1)
+client = Client(cluster)
+
 FirstZAboveZero = Value('d', -1)
 Processes = []
 ResultQueuesCone = []
@@ -216,6 +222,7 @@ try:
     for ResultQueueCone in ResultQueuesCone:
         DensityPlumeArraySubresult = ResultQueueCone.get()
         NonzeroIndicies = np.nonzero(DensityPlumeArraySubresult)
+        print(f"Nonzero Indices: {NonzeroIndicies}")
         DensityPlumeArray[NonzeroIndicies] = DensityPlumeArraySubresult[NonzeroIndicies]
     for ResultQueueDisk in ResultQueuesDisk:
         DensityDiskArraySubresult = ResultQueueDisk.get()
